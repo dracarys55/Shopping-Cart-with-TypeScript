@@ -59,7 +59,9 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
                 variant='danger'
                 size='sm'
                 onClick={() => removeFromCart(id)}
-              ></Button>
+              >
+                Remove
+              </Button>
             </div>
           )}
         </div>
