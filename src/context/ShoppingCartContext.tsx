@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
+import ShoppingCart from '../components/ShoppingCart';
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -6,10 +7,14 @@ type ShoppingCartProviderProps = {
 
 /* 不懂為甚麼要回傳void */
 type ShoppingCartContext = {
+  openCart: () => void;
+  closeCart: () => void;
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
+  cartQuantity: number;
+  cartItems: CartItem[];
 };
 
 type CartItem = {
@@ -25,9 +30,18 @@ export function useShoppingCart() {
 
 /* 為甚麼需要children */
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>(
     []
   ); /*  useState<CartItem[]>([]) 這裡的寫法好酷*/
+
+  /* reduce的用法忘了 */
+  const cartQuantity = cartItems.reduce(
+    (quantity, item) => item.quantity + quantity,
+    0
+  );
+  const openCart = () => setIsOpen(true);
+  const closeCart = () => setIsOpen(false);
 
   function getItemQuantity(id: number) {
     /*?.quantity || 0 不懂這裡要幹嘛  */
@@ -75,9 +89,14 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
+        openCart,
+        closeCart,
+        cartItems,
+        cartQuantity,
       }}
     >
       {children}
+      <ShoppingCart isOpen={isOpen} />
     </ShoppingCartContext.Provider>
   );
 }
