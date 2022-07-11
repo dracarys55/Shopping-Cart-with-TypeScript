@@ -1,8 +1,14 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import ShoppingCart from '../components/ShoppingCart';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
+};
+
+type CartItem = {
+  id: number;
+  quantity: number;
 };
 
 /* 不懂為甚麼要回傳void */
@@ -17,11 +23,6 @@ type ShoppingCartContext = {
   cartItems: CartItem[];
 };
 
-type CartItem = {
-  id: number;
-  quantity: number;
-};
-
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
 export function useShoppingCart() {
@@ -31,7 +32,8 @@ export function useShoppingCart() {
 /* 為甚麼需要children */
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>(
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    'shopping-cart',
     []
   ); /*  useState<CartItem[]>([]) 這裡的寫法好酷*/
 
