@@ -1,30 +1,6 @@
-import React from 'react';
 import { Button, Container, Nav, Navbar as NavBs } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useShoppingCart } from '../context/ShoppingCartContext';
-
-const menuConfig = {
-  title: 'Order',
-  // 使用者漏掉了 'body'
-  buttonText: 'Send',
-  cancellable: true,
-};
-
-function createMenu(config: any) {
-  // 複製某一物件的內容到一個全新的物件上
-  let finalConfig = Object.assign(
-    {
-      ti: 'Foo',
-      bo: 'Bar',
-      buttonText: 'Baz',
-      cancellable: true,
-    },
-    config
-  );
-  return finalConfig;
-  // config 現在等同於： {title: 'Order', body: 'Bar', buttonText: 'Send', cancellable: true}
-  // ...
-}
 
 const Navbar = () => {
   const { openCart, cartQuantity } = useShoppingCart();
@@ -49,8 +25,8 @@ const Navbar = () => {
               width: '3rem',
               height: '3rem',
               position: 'relative',
-            }} /* 忘記為甚麼 style 要加兩個{{ */
-            variant='outline-primary' /* 甚麼意思 */
+            }}
+            variant='outline-primary'
             className='rounded-circle'
           >
             <svg
@@ -70,7 +46,6 @@ const Navbar = () => {
                 bottom: 0,
                 right: 0,
                 transform: 'translate(25%,25%)',
-                /* transform 屬性不太懂 */
               }}
             >
               {cartQuantity}

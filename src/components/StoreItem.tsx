@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useShoppingCart } from '../context/ShoppingCartContext';
 /* 為甚麼這裡Card 不加花括號， 就不能使用Card.Img 了 */

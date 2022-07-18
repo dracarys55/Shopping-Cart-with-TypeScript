@@ -24,20 +24,21 @@ type ShoppingCartContext = {
 };
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
+/* 這裡也採用的是ts 斷言 而非註記 */
 
 export function useShoppingCart() {
   return useContext(ShoppingCartContext);
 }
 
-/* 為甚麼需要children */
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
     'shopping-cart',
     []
-  ); /*  useState<CartItem[]>([]) 這裡的寫法好酷*/
-
-  /* reduce的用法忘了 */
+  ); /* 
+  useLocalStorage<CartItem[]> 的寫法為 斷言的寫法 
+  與一般使用 :冒號做註記有所不同 
+  */
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
     0

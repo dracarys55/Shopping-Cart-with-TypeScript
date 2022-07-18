@@ -6,11 +6,12 @@ const Store = () => {
   return (
     <>
       <h1>Store</h1>
-      {/* md = medium size  xs = extra small lg = large  */}
+      {/* Row Col 確切用法
+       */}
       <Row md={2} xs={1} lg={3} className='g-3'>
         {storeItems.map((item) => (
           <Col key={item.id}>
-            <StoreItem {...item} />{' '}
+            <StoreItem {...item} />
           </Col>
         ))}
       </Row>
